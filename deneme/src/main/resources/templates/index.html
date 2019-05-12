@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js" type="text/javascript"></script>
+    <script src="/jsfiles/myApp.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.7.8/angular-resource.js"></script>
+    <style>
+        body{
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<br>
+<div class="container">
+    <label class="control-label col-sm-2" for="pwd">Select Query</label>
+    <select class="form-control" ng-options="o.name for o in options" ng-model="selectedOption"
+            ng-change="setQuery(selectedOption)">
+    </select>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email"
+                       ng-model="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Password:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pwd"
+                       ng-model="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="blind" name="remember">Blind</label>
+                </div>
+                <div class="d-flex float-right col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-offset-2 col-sm-6">
+                        <button ng-click="inject()" class="btn btn-default">Inject</button>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-6">
+                        <button ng-click="prevent()" class="btn btn-default">Prevent</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<br>
+<br>
+
+<div class="container">
+    <label>Query</label>
+    <textarea class="form-control" placeholder="Query" rows="3">
+        {{userResponse.query}}
+    </textarea>
+</div>
+
+<br>
+<br>
+<div class="container" ng-hide="blind">
+    <table class="table table-striped">
+        <thead>
+        <th>Email</th>
+        <th>Name</th>
+        </thead>
+        <tbody ng-repeat="user in userResponse.userList">
+        <tr>
+            <td>
+                {{user.email}}
+            </td>
+            <td>
+                {{user.name}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<div class="container"  ng-hide="blind">
+    <label>Errors</label>
+    <textarea class="form-control" placeholder="SQL Errors" rows="3">
+        {{userResponse.exception}}
+    </textarea>
+</div>
+<br>
+<br>
+</body>
+</html>
